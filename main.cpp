@@ -6,27 +6,14 @@
 
 int main()
 {
-    std::vector<std::string> files;
-    std::string stringF;
-    
-    std::vector<int> stri;
-
-    fileSearch("G:\\log.txt", "USB", stri);
-    for(int i = 0; i < stri.size(); i++)
+    std::vector<FindFile> findfiles;
+    searchbyLine("C:\\", "txt", "USB", findfiles);
+    for(int i = 0; i < findfiles.size(); i++)
     {
-        std::cout<<stri.at(i)<<"  ";
-        std::cout<<getStringF("G:\\log.txt", stri.at(i), stringF)<<" "<<stringF<<std::endl;
-    }
-    
-    int dir = getdir("C:\\", files);
-    if(dir)
-    {
-        int size = files.size();
-        for(int i = 0; i < size; i++)
-        {
-            if(validationExtensionf(files.at(i), "txt"))
-                std::cout<<files.at(i)<<std::endl;
-        }
+        std::cout<< findfiles.at(i).nameFile<<std::endl;
+        for(int j = 0; j < findfiles.at(i).lineNumbers.size(); j++)
+            std::cout<< findfiles.at(i).lineNumbers.at(j)<<"   ";
+        std::cout<< std::endl;
     }
     return 0;
 }

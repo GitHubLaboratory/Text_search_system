@@ -18,6 +18,12 @@
 #include <string>
 #include <fstream>
 
+struct FindFile
+{                  
+    std::vector<int> lineNumbers;
+    std::string nameFile;
+};  
+
 class SearchEngine {
 public:
     SearchEngine();
@@ -25,6 +31,8 @@ public:
     int getStringF(std::string path, int numberS, std::string &stringF);
     int fileSearch(std::string path, std::string str, std::vector<int> &found_numbers);
     int getdir (std::string dir, std::vector<std::string> &files);
+    int validationExtensionf(std::string file, std::string extension);
+    int searchbyLine(std::string path, std::string extension, std::string str_tosearch, std::vector<FindFile> &findFiles);
     virtual ~SearchEngine();
 private:
 

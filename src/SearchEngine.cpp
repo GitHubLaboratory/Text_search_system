@@ -20,6 +20,8 @@
 //    FILE *fp = fopen(filec, "r");
 //    delete[] filec;
 
+
+
 int getStringF(std::string path, int numberS, std::string &stringF)
 {
     FILE *fp = fopen(path.c_str(), "r");
@@ -41,7 +43,7 @@ int getStringF(std::string path, int numberS, std::string &stringF)
     return -1;
 }
 
-int fileSearch(std::string path, std::string str, std::vector<int> &found_numbers)
+int fileSearch(std::string path, std::string str, std::vector<int> &lineNumbers)
 {
     FILE *fp = fopen(path.c_str(), "r");
     int n = 0;
@@ -57,7 +59,7 @@ int fileSearch(std::string path, std::string str, std::vector<int> &found_number
         
         if(ielem == (int)str.length())
         {
-            found_numbers.push_back(n);
+            lineNumbers.push_back(n);
             ielem = 0;
         }
     }
@@ -96,6 +98,35 @@ int validationExtensionf(std::string file, std::string extension)
         else
             return 0;
     }
+    return 1;
+}
+
+int searchbyLine(std::string path, std::string extension, std::string str_tosearch, std::vector<FindFile> &findFiles)
+{
+    std::vector<std::string> files;
+    int dir = getdir(path, files);
+    if(dir)
+    {
+        int size = files.size();
+        for(int i = 0; i < size; i++)
+        {
+            if(validationExtensionf(files.at(i), extension))
+            {
+                std::vector<int> lineNumbers;
+                int fileSearchR = fileSearch(path + '\\' + files.at(i), str_tosearch, lineNumbers);
+                if(fileSearchR && lineNumbers.size() > 0)
+                {
+                    FindFile findFile;
+                    findFile.lineNumbers = lineNumbers;
+                    findFile.nameFile = files.at(i);
+                    findFiles.push_back(findFile);
+                }
+            }
+        }
+    }
+    else
+        return 0;
+    
     return 1;
 }
 
