@@ -69,9 +69,9 @@ int getdir (std::string dir, std::vector<std::string> &files)
 {
     DIR *dp;
     struct dirent *dirp;
-    if((dp  = opendir(dir.c_str())) == NULL) {
+    
+    if((dp  = opendir(dir.c_str())) == NULL)
         return 0;
-    }
 
     while ((dirp = readdir(dp)) != NULL) {
         files.push_back(std::string(dirp->d_name));
@@ -83,8 +83,7 @@ int getdir (std::string dir, std::vector<std::string> &files)
 int validationExtensionf(std::string file, std::string extension)
 {
     int n = extension.length() - 1;
-    int filen =  file.length() - 1;
-    for(int i = filen; i > 0; i--)
+    for(int i = file.length() - 1; i > 0; i--)
     {   
         if(file.at(i) == '.') 
             break;
