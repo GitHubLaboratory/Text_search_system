@@ -55,7 +55,7 @@ int fileSearch(std::string path, std::string str, std::vector<int> &found_number
         else 
             ielem = 0;
         
-        if(ielem == (int)str.length() - 1)
+        if(ielem == (int)str.length())
         {
             found_numbers.push_back(n);
             ielem = 0;
