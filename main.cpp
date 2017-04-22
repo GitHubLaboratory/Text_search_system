@@ -18,14 +18,15 @@ int main()
         std::cout<<getStringF("G:\\log.txt", stri.at(i), stringF)<<" "<<stringF<<std::endl;
     }
     
-//    int dir = getdir("C:\\", files);
-//    if(dir)
-//    {
-//        int size = files.size();
-//        for(int i = 0; i < size; i++)
-//        {
-//            std::cout<<files.at(i)<<std::endl;
-//        }
-//    }
+    int dir = getdir("C:\\", files);
+    if(dir)
+    {
+        int size = files.size();
+        for(int i = 0; i < size; i++)
+        {
+            if(validationExtensionf(files.at(i), "txt"))
+                std::cout<<files.at(i)<<std::endl;
+        }
+    }
     return 0;
 }
