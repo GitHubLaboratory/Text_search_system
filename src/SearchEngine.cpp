@@ -80,6 +80,26 @@ int getdir (std::string dir, std::vector<std::string> &files)
     return 1;
 }
 
+int validationExtensionf(std::string file, std::string extension)
+{
+    int n = extension.length() - 1;
+    int filen =  file.length() - 1;
+    for(int i = filen; i > 0; i--)
+    {   
+        if(file.at(i) == '.') 
+            break;
+        
+        if(n < 0) 
+            return 0;
+        
+        if(file.at(i) == extension.at(n)) 
+            n--;
+        else
+            return 0;
+    }
+    return 1;
+}
+
 SearchEngine::SearchEngine() {
 }
 
