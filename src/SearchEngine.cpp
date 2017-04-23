@@ -116,14 +116,19 @@ int searchbyLine(std::string path, std::string extension, std::string str_tosear
                 lineNumbers.clear();
             }
         }
+        files.clear();
+        return 1;
     }
     else
     {
         files.clear();
         return 0;
     }
-    files.clear();
-    return 1;
+}
+
+int searchbyLine(std::string path, std::string str_tosearch, std::vector<FindFile> &findFiles)
+{
+    return 0;
 }
 
 SearchEngine::SearchEngine() {

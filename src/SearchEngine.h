@@ -33,6 +33,7 @@ public:
     int getdir (std::string dir, std::vector<std::string> &files);
     int validationExtensionf(std::string file, std::string extension);
     int searchbyLine(std::string path, std::string extension, std::string str_tosearch, std::vector<FindFile> &findFiles);
+    int searchbyLine(std::string path, std::string str_tosearch, std::vector<FindFile> &findFiles);
     virtual ~SearchEngine();
 private:
 
