@@ -13,18 +13,9 @@
 
 #include "SearchEngine.h"
 
-//    char *filec = new char[file.length() + 1];
-//
-//    std::strcpy(filec, file.c_str());
-//    
-//    FILE *fp = fopen(filec, "r");
-//    delete[] filec;
-
-
-
 int getStringF(std::string path, int numberS, std::string &stringF)
 {
-    FILE *fp = fopen(path.c_str(), "r");
+    FILE *fp = fopen(path.c_str(), "rb");
     stringF = ""; 
     int n = 0;
     char buf[2];
@@ -35,17 +26,18 @@ int getStringF(std::string path, int numberS, std::string &stringF)
             fclose(fp);
             return 1;
         }
-        if(n == numberS) stringF += buf[0];
+        if(n == numberS) 
+            stringF += buf[0];
+        
         if(buf[0] == '\n') n++;
     }
     fclose(fp);
-    if(n < numberS) return 0;
-    return -1;
+    return 0;
 }
 
 int fileSearch(std::string path, std::string str, std::vector<int> &lineNumbers)
 {
-    FILE *fp = fopen(path.c_str(), "r");
+    FILE *fp = fopen(path.c_str(), "rb");
     int n = 0;
     int ielem = 0;
     char buf[2];
@@ -67,7 +59,7 @@ int fileSearch(std::string path, std::string str, std::vector<int> &lineNumbers)
     return 1;
 }
 
-int getdir (std::string dir, std::vector<std::string> &files)
+int getdir(std::string dir, std::vector<std::string> &files)
 {
     DIR *dp;
     struct dirent *dirp;
@@ -85,10 +77,10 @@ int getdir (std::string dir, std::vector<std::string> &files)
 int validationExtensionf(std::string file, std::string extension)
 {
     int n = extension.length() - 1;
-    for(int i = file.length() - 1; i > 0; i--)
+    for(int i = file.length() - 1; i >= 0; i--)
     {   
         if(file.at(i) == '.') 
-            break;
+            return 1;
         
         if(n < 0) 
             return 0;
@@ -98,7 +90,7 @@ int validationExtensionf(std::string file, std::string extension)
         else
             return 0;
     }
-    return 1;
+    return 0;
 }
 
 int searchbyLine(std::string path, std::string extension, std::string str_tosearch, std::vector<FindFile> &findFiles)
@@ -121,12 +113,16 @@ int searchbyLine(std::string path, std::string extension, std::string str_tosear
                     findFile.nameFile = files.at(i);
                     findFiles.push_back(findFile);
                 }
+                lineNumbers.clear();
             }
         }
     }
     else
+    {
+        files.clear();
         return 0;
-    
+    }
+    files.clear();
     return 1;
 }
 

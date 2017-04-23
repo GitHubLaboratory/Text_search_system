@@ -5,21 +5,24 @@
  */
 
 /* 
- * File:   class_test.cpp
+ * File:   ClassTest.cpp
  * Author: Admin
  * 
- * Created on 21 апреля 2017 г., 23:48
+ * Created on 22 апреля 2017 г., 2:17
  */
 
-#include "class_test.h"
+#include "ClassTest.h"
 
-class_test::class_test() {
-    
+ClassTest::ClassTest() {
 }
 
-class_test::class_test(const class_test& orig) {
+int raschet(){
+    return 20;
 }
 
-class_test::~class_test() {
+ClassTest::ClassTest(const ClassTest& orig) {
+}
+
+ClassTest::~ClassTest() {
 }
 
