@@ -7,7 +7,12 @@
 int main()
 {
     std::vector<FindFile> findfiles;
-    searchbyLine("C:/", "txt", "USB", findfiles);
+    
+    std::string path;
+    
+    std::cin>>path;
+    
+    searchbyLine(path, "txt", "USB", findfiles);
     for(int i = 0; i < findfiles.size(); i++)
     {
         std::cout<< findfiles.at(i).nameFile<<std::endl;
