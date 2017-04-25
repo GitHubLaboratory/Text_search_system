@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "./src/ClassTest.h"
 #include "./src/SearchEngine.cpp"
 
 int main()
@@ -12,7 +11,7 @@ int main()
     
     std::cin>>path;
     
-    searchbyLine(path, "txt", "USB", findfiles);
+    searchbyLine(path, "USB", findfiles);
     for(int i = 0; i < findfiles.size(); i++)
     {
         std::cout<< findfiles.at(i).nameFile<<std::endl;

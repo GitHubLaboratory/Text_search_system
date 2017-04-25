@@ -128,7 +128,31 @@ int searchbyLine(std::string path, std::string extension, std::string str_tosear
 
 int searchbyLine(std::string path, std::string str_tosearch, std::vector<FindFile> &findFiles)
 {
-    return 1;
+    std::vector<std::string> files;
+    int dir = getdir(path, files);
+    if(dir)
+    {
+        int size = files.size();
+        for(int i = 0; i < size; i++)
+        {
+            std::vector<int> lineNumbers;
+            int fileSearchR = fileSearch(path + '\\' + files.at(i), str_tosearch, lineNumbers);
+            if(fileSearchR && lineNumbers.size() > 0)
+            {
+                FindFile findFile;
+                findFile.lineNumbers = lineNumbers;
+                findFile.nameFile = files.at(i);
+                findFiles.push_back(findFile);
+            }
+            lineNumbers.clear();
+        }
+        return 1;
+    }
+    else
+    {
+        files.clear();
+        return 0;
+    }
 }
 
 SearchEngine::SearchEngine() {

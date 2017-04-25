@@ -29,14 +29,13 @@ public:
     SearchEngine();
     SearchEngine(const SearchEngine& orig);
     int getStringF(std::string path, int numberS, std::string &stringF);
-    int fileSearch(std::string path, std::string str, std::vector<int> &found_numbers);
-    int getdir (std::string dir, std::vector<std::string> &files);
-    int validationExtensionf(std::string file, std::string extension);
     int searchbyLine(std::string path, std::string extension, std::string str_tosearch, std::vector<FindFile> &findFiles);
     int searchbyLine(std::string path, std::string str_tosearch, std::vector<FindFile> &findFiles);
     virtual ~SearchEngine();
 private:
-
+    int fileSearch(std::string path, std::string str, std::vector<int> &found_numbers);
+    int getdir (std::string dir, std::vector<std::string> &files);
+    int validationExtensionf(std::string file, std::string extension);
 };
 
 #endif /* SEARCHENGINE_H */
