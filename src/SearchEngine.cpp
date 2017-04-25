@@ -128,7 +128,7 @@ int searchbyLine(std::string path, std::string extension, std::string str_tosear
 
 int searchbyLine(std::string path, std::string str_tosearch, std::vector<FindFile> &findFiles)
 {
-    return 0;
+    return 1;
 }
 
 SearchEngine::SearchEngine() {
