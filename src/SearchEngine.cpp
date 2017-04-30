@@ -13,7 +13,7 @@
 
 #include "SearchEngine.h"
 
-int getStringF(std::string path, int numberS, std::string &stringF)
+int SearchEngine::getStringF(std::string path, int numberS, std::string &stringF)
 {
     FILE *fp = fopen(path.c_str(), "rb");
     stringF = ""; 
@@ -35,7 +35,7 @@ int getStringF(std::string path, int numberS, std::string &stringF)
     return 0;
 }
 
-int fileSearch(std::string path, std::string str, std::vector<int> &lineNumbers)
+int SearchEngine::fileSearch(std::string path, std::string str, std::vector<int> &lineNumbers)
 {
     FILE *fp = fopen(path.c_str(), "rb");
     int n = 0;
@@ -59,7 +59,7 @@ int fileSearch(std::string path, std::string str, std::vector<int> &lineNumbers)
     return 1;
 }
 
-int getdir(std::string dir, std::vector<std::string> &files)
+int SearchEngine::getdir(std::string dir, std::vector<std::string> &files)
 {
     DIR *dp;
     struct dirent *dirp;
@@ -74,7 +74,7 @@ int getdir(std::string dir, std::vector<std::string> &files)
     return 1;
 }
 
-int validationExtensionf(std::string file, std::string extension)
+int SearchEngine::validationExtensionf(std::string file, std::string extension)
 {
     int n = extension.length() - 1;
     for(int i = file.length() - 1; i >= 0; i--)
@@ -93,7 +93,7 @@ int validationExtensionf(std::string file, std::string extension)
     return 0;
 }
 
-int searchbyLine(std::string path, std::string extension, std::string str_tosearch, std::vector<FindFile> &findFiles)
+int SearchEngine::searchbyLine(std::string path, std::string extension, std::string str_tosearch, std::vector<FindFile> &findFiles)
 {
     std::vector<std::string> files;
     int dir = getdir(path, files);
@@ -126,7 +126,7 @@ int searchbyLine(std::string path, std::string extension, std::string str_tosear
     }
 }
 
-int searchbyLine(std::string path, std::string str_tosearch, std::vector<FindFile> &findFiles)
+int SearchEngine::searchbyLine(std::string path, std::string str_tosearch, std::vector<FindFile> &findFiles)
 {
     std::vector<std::string> files;
     int dir = getdir(path, files);
@@ -163,4 +163,3 @@ SearchEngine::SearchEngine(const SearchEngine& orig) {
 
 SearchEngine::~SearchEngine() {
 }
-

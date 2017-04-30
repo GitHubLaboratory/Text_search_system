@@ -1,17 +1,31 @@
+#include "mainwindow.h"
+#include <QApplication>
 #include <iostream>
 #include <vector>
 #include <string>
-#include "./src/SearchEngine.cpp"
+#include "./src/SearchEngine.h"
 
-int main()
+int main(int argc, char *argv[])
 {
+    QApplication a(argc, argv);
+    MainWindow w;
+    w.show();
+
+
+    SearchEngine searchEngined;
     std::vector<FindFile> findfiles;
-    
+
     std::string path;
-    
+
+    std::string str;
+
+
+    searchEngined.getStringF("C:/log.txt", 5, str);
+
+    std::cout<<str;
+
     std::cin>>path;
-    
-    searchbyLine(path, "USB", findfiles);
+    searchEngined.searchbyLine(path, "USB", findfiles);
     for(int i = 0; i < findfiles.size(); i++)
     {
         std::cout<< findfiles.at(i).nameFile<<std::endl;
@@ -19,5 +33,7 @@ int main()
             std::cout<< findfiles.at(i).lineNumbers.at(j)<<"   ";
         std::cout<< std::endl;
     }
-    return 0;
+
+
+    return a.exec();
 }
