@@ -2,5 +2,8 @@ language: c++
 compiler: g++
 
 script:
+ - mkdir -p ./bin
+ - mkdir -p ./build
+ - mkdir -p ./bin/test
  - make -f Makefile.test
  - ./bin/test/tss_test
