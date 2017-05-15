@@ -27,14 +27,14 @@ int SearchEngine::getStringF(char *path, int numberS, std::string &stringF)
     char buf[2];
     while(fgets(buf, 2, fp) != NULL)
     {
+        if(buf[0] == '\n')
+            n++;
+
         if (n > numberS)
             break;
 
         if (n == numberS)
             stringF += buf[0];
-        
-        if(buf[0] == '\n')
-            n++;
     }
     if(stringF == "")
     {
