@@ -31,8 +31,3 @@ HEADERS  += mainwindow.h \
     src/SearchEngine.h
 
 FORMS    += mainwindow.ui
-
-DISTFILES += \
-    Makefile \
-    Makefile.Debug \
-    Makefile.Release
