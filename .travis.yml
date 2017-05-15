@@ -2,5 +2,5 @@ language: c++
 compiler: g++
 
 script:
- - make
+ - make -f Makefile.test
  - ./bin/test/tss_test
