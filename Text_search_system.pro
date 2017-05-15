@@ -37,6 +37,12 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui
 
 DISTFILES += \
+<<<<<<< HEAD
     test/test.txt \
     Makefile.test \
     Makefile.test
+=======
+    Makefile \
+    Makefile.Debug \
+    Makefile.Release
+>>>>>>> origin/develop
