@@ -35,10 +35,11 @@ public:
     int getStringF(char *path, int numberS, std::string &stringF);
     char* concat(char *s1, char *s2);
     virtual ~SearchEngine();
-private:
     int fileSearch(char *path, std::string str, std::vector<int> &found_numbers);
     int getdir (char *dir, std::vector<char*> &files);
 //    int validationExtensionf(std::string file, std::string extension);
+private:
+
 };
 
 #endif /* SEARCHENGINE_H */

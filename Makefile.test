@@ -1,4 +1,4 @@
-CXX = g++
+CXX = g++ -std=gnu++11
 
 mainTo = .\build\main_test.o
 seTo   = .\build\searchengine_test.o
