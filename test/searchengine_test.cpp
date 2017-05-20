@@ -3,8 +3,8 @@
 #include <iostream>
 
 SearchEngine se;
-char path[] = "./test.txt";
-char dir[] = "./";
+char path[] = "./bin/test/test.txt";
+char dir[] = "./bin/test/";
 
 CTEST(validationExtensionf, validationExtensionf_test)
 {
