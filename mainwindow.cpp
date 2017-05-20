@@ -45,7 +45,7 @@ void MainWindow::on_pushButton_clicked()
     ui->treeWidget->clear();
     if(searchEngine.searchbyLine(dir.toLocal8Bit().data(), searchStr.toStdString(), files))
     {
-        for(int i = 0; i < files.size(); i++)
+        for(size_t i = 0; i < files.size(); i++)
         {
             char *nameFile = files.at(i).nameFile;
             topLevelItem=new QTreeWidgetItem(ui->treeWidget);
@@ -53,7 +53,7 @@ void MainWindow::on_pushButton_clicked()
 
             char *cat = searchEngine.concat(dir.toLocal8Bit().data(), nameFile);
             topLevelItem->setText(0, QString::fromLocal8Bit(cat));
-            for(int j = 0; j < files.at(i).lineNumbers.size(); j++)
+            for(size_t j = 0; j < files.at(i).lineNumbers.size(); j++)
             {
                 item=new QTreeWidgetItem(topLevelItem);
                 item->setText(0, QString::number(files.at(i).lineNumbers.at(j)));
@@ -79,8 +79,9 @@ void MainWindow::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
         for(int i = 0; i < item->childCount(); i++)
         {
             QTreeWidgetItem *pod_item = item->child(i);
-            if(searchEngine.getStringF(item->text(column).toLocal8Bit().data(), pod_item->text(column).toInt(), str));
-            qstr += pod_item->text(column) + '\n' + QString::fromStdString(str) + '\n';
+            int verification = searchEngine.getStringF(item->text(column).toLocal8Bit().data(), pod_item->text(column).toInt(), str);
+            if(verification)
+                qstr += pod_item->text(column) + '\n' + QString::fromStdString(str) + '\n';
         }
     }
     le->setText(qstr);
