@@ -3,8 +3,8 @@
 #include <iostream>
 
 SearchEngine se;
-char path[] = "C:/NVIDIA/Text_search_system/bin/test/test.txt";
-char dir[] = "C:/NVIDIA/Text_search_system/test/";
+char path[] = "./test.txt";
+char dir[] = "./";
 
 CTEST(validationExtensionf, validationExtensionf_test)
 {
@@ -59,7 +59,7 @@ CTEST(fileSearch, fileSearch_test)
 
 CTEST(getdir, getdir_test)
 {
-    std::vector<char*> exp {".", "..", "ctest.h", "main_test.cpp", "searchengine_test.cpp"};
+    std::vector<char*> exp {".", "..", "2.txt", "test.txt", "tss_test"};
     std::vector<char*> vect;
     se.getdir(dir, vect);
     int result = 1;
