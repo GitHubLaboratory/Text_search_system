@@ -33,7 +33,7 @@ int SearchEngine::getStringF(char *path, int numberS, std::string &stringF)
         if (n > numberS)
             break;
 
-        if (n == numberS)
+        if (buf[0] != '\n' && n == numberS)
             stringF += buf[0];
     }
     if(stringF == "")
@@ -100,7 +100,7 @@ int SearchEngine::getdir(char *dir, std::vector<char*> &files)
 int SearchEngine::validationExtensionf(char *file, std::string extension)
 {
     int n = extension.length() - 1;
-    for(size_t i = strlen(file) - 1; i >= 0; i--)
+    for(size_t i = strlen(file) - 1;; i--)
     {
         if(file[i] == '.')
             return 1;
@@ -196,8 +196,8 @@ int SearchEngine::searchbyLine(char *path, std::string extension, std::string st
 SearchEngine::SearchEngine() {
 }
 
-SearchEngine::SearchEngine(const SearchEngine& orig) {
-}
+//SearchEngine::SearchEngine(const SearchEngine& orig) {
+//}
 
 SearchEngine::~SearchEngine() {
 }

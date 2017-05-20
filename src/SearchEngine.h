@@ -15,9 +15,9 @@
 #define SEARCHENGINE_H
 #include <dirent.h>
 #include <vector>
-#include <string>
+#include <string.h>
 #include <fstream>
-#include <sys\stat.h>
+#include <sys/stat.h>
 
 struct FindFile
 {                  
@@ -31,13 +31,13 @@ public:
     SearchEngine(const SearchEngine& orig);
     int searchbyLine(char *path, std::string extension, std::string str_tosearch, std::vector<FindFile> &findFiles);
     int searchbyLine(char *path, std::string str_tosearch, std::vector<FindFile> &findFiles);
-    int validationExtensionf(char *file, std::string extension);
+    int fileSearch(char *path, std::string str, std::vector<int> &found_numbers);
     int getStringF(char *path, int numberS, std::string &stringF);
+    int validationExtensionf(char *file, std::string extension);
+    int getdir (char *dir, std::vector<char*> &files);
     char* concat(char *s1, char *s2);
     virtual ~SearchEngine();
-    int fileSearch(char *path, std::string str, std::vector<int> &found_numbers);
-    int getdir (char *dir, std::vector<char*> &files);
-//    int validationExtensionf(std::string file, std::string extension);
+
 private:
 
 };
