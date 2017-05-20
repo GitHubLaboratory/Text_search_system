@@ -32,7 +32,4 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui
 
-DISTFILES += \
-    Makefile \
-    Makefile.Debug \
-    Makefile.Release
+DISTFILES +=
