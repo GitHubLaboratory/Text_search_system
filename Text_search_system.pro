@@ -38,6 +38,6 @@ FORMS    += mainwindow.ui
 
 DISTFILES += test/test.txt \
     Makefile.test \
-    Makefile.test \
     bin/test/2.txt \
-    build/1.txt
+    build/1.txt \
+    .travis.yml
