@@ -62,6 +62,10 @@ CTEST(getdir, getdir_test)
     std::vector<char*> exp {".", "..", "2.txt", "test.txt", "tss_test"};
     std::vector<char*> vect;
     se.getdir(dir, vect);
+    for(int i = 0; i < vect.size(); i++)
+    {
+        std::cout<< vect.at(i) << std::endl;
+    }
     int result = 1;
     int size = exp.size();
     if (size == vect.size())
