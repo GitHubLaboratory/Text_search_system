@@ -4,7 +4,7 @@
 
 SearchEngine se;
 char path[] = "C:/NVIDIA/Text_search_system/bin/test/test.txt";
-
+char dir[] = "C:/NVIDIA/Text_search_system/test/";
 
 CTEST(validationExtensionf, validationExtensionf_test)
 {
@@ -57,4 +57,81 @@ CTEST(fileSearch, fileSearch_test)
     ASSERT_EQUAL(result, 1);
 }
 
+CTEST(getdir, getdir_test)
+{
+    std::vector<char*> exp {".", "..", "ctest.h", "main_test.cpp", "searchengine_test.cpp"};
+    std::vector<char*> vect;
+    se.getdir(dir, vect);
+    int result = 1;
+    int size = exp.size();
+    if (size == vect.size())
+    {
+        for(int i = 0; i < size; i++)
+        {
+            char *q1 = exp.at(i);
+            char *q2 = vect.at(i);
+            if(*q1 != *q2)
+            {
+                result = 0;
+                break;
+            }
+        }
+    }
+    else
+        result = 0;
+    ASSERT_EQUAL(result, 1);
+}
 
+CTEST(searchbyLine, searchbyLine_test)
+{
+    std::vector<FindFile> vector;
+    std::string word = "use";
+    std::vector<FindFile> vect;
+    FindFile w1;
+    w1.lineNumbers =  std::vector<int> {3, 72, 74 ,401, 414};
+    w1.nameFile = "ctest.h";
+    vect.push_back(w1);
+    w1.lineNumbers =  std::vector<int> {87};
+    w1.nameFile = "searchengine_test.cpp";
+    vect.push_back(w1);
+//    w1.lineNumbers =  std::vector<int> {6, 10};
+//    w1.nameFile = "./test.txt";
+//    vect.push_back(w1);
+    se.searchbyLine(dir, word, vector);
+    int result = 1;
+    int size = vect.size();
+    if (size == vector.size())
+    {
+        for(int i = 0; i < size; i++)
+        {
+            std::string q1 = vect.at(i).nameFile;
+            std::string q2 = vector.at(i).nameFile;
+            if(q1 != q2)
+            {
+                result = 0;
+                break;
+            }
+            int szr = vect.at(i).lineNumbers.size();
+            int szo = vector.at(i).lineNumbers.size();
+            if(szr != szo)
+            {
+                result = 0;
+                break;
+            }
+            for(int j = 0; j < szr; j++)
+            {
+                int lnr = vector.at(i).lineNumbers.at(j);
+                int dnr = vect.at(i).lineNumbers.at(j);
+                if(lnr != dnr)
+                {
+                    result = 0;
+                    break;
+                }
+            }
+        }
+    }
+    else
+        result = 0;
+    ASSERT_EQUAL(result, 1);
+
+}
