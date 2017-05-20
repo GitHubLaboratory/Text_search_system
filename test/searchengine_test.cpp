@@ -3,7 +3,7 @@
 #include <iostream>
 
 SearchEngine se;
-char path[] = "C:/NVIDIA/Text_search_system/test/test.txt";
+char path[] = "C:/NVIDIA/Text_search_system/bin/test/test.txt";
 
 
 CTEST(validationExtensionf, validationExtensionf_test)

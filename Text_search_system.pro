@@ -40,4 +40,5 @@ DISTFILES += test/test.txt \
     Makefile.test \
     bin/test/2.txt \
     build/1.txt \
-    .travis.yml
+    .travis.yml \
+    bin/test/test.txt
