@@ -9,20 +9,17 @@ char dir[] = "./bin/test/";
 CTEST(validationExtensionf, validationExtensionf_test)
 {
     int expected = 1;
-    int result = se.validationExtensionf("asd.txt", "txt");
+    char ch[] = "asd.txt";
+    int result = se.validationExtensionf(ch, "txt");
     ASSERT_EQUAL(expected, result);
 }
 
 CTEST(concat, concat_test)
 {
-    char *s1, *s2;
-    s1 = new char [3];
-    s2 = new char [4];
-    s1 = "abc";
-    s2 = "defg";
-    char *exp  = new char [7];
-    exp = "abcdefg";
-    char *real = se.concat(s1,s2);
+    char ch1[] = "abc";
+    char ch2[] = "defg";
+    char exp[] = "abcdefg";
+    char *real = se.concat(ch1,ch2);
     ASSERT_STR(exp, real);
 }
 
@@ -40,10 +37,10 @@ CTEST(fileSearch, fileSearch_test)
     se.fileSearch(path,"MACRO", vect);
     std::vector<int> exp {0,4,8,12,15};
     int result = 1;
-    int size = exp.size();
+    size_t size = exp.size();
     if (size == vect.size())
     {
-        for(int i = 0; i < size; i++)
+        for(size_t i = 0; i < size; i++)
         {
             if(exp.at(i) != vect.at(i))
             {
@@ -59,25 +56,26 @@ CTEST(fileSearch, fileSearch_test)
 
 CTEST(getdir, getdir_test)
 {
-    std::vector<char*> exp {".", "..", "2.txt", "test.txt", "tss_test"};
+    std::vector<char*> exp {(char *) ".", (char *) "..", (char *) "test.txt", (char *) "tss_test.exe"};
     std::vector<char*> vect;
     se.getdir(dir, vect);
-    for(int i = 0; i < vect.size(); i++)
-    {
-        std::cout<< vect.at(i) << std::endl;
-    }
     int result = 1;
-    int size = exp.size();
-    if (size == vect.size())
+
+    if (exp.size() == vect.size())
     {
-        for(int i = 0; i < size; i++)
+        for(size_t i = 0; i < vect.size() && result; i++)
         {
-            char *q1 = exp.at(i);
-            char *q2 = vect.at(i);
-            if(*q1 != *q2)
+            char *q1 = vect.at(i);
+            int size = exp.size();
+            for (int j = 0; j < size; j++)
             {
+                char *q2 = exp.at(j);
+                if (!strcmp(q1, q2))
+                {
+                    exp.erase(exp.begin() + j);
+                    break;
+                }
                 result = 0;
-                break;
             }
         }
     }
@@ -86,47 +84,67 @@ CTEST(getdir, getdir_test)
     ASSERT_EQUAL(result, 1);
 }
 
+bool vector_compare(FindFile a1, FindFile a2)
+{
+    if(strcmp(a1.nameFile, a2.nameFile))
+        return false;
+
+    if(a1.lineNumbers.size() != a2.lineNumbers.size())
+        return false;
+
+    size_t size = a1.lineNumbers.size();
+
+    FindFile a2c = a2;
+
+    for(size_t i = 0; i < size; i++)
+    {
+        size_t sz = a2c.lineNumbers.size();
+        for(size_t j = 0; j < sz; j++)
+        {
+            if(a1.lineNumbers.at(i) == a2c.lineNumbers.at(j))
+            {
+                a2c.lineNumbers.erase(a2c.lineNumbers.begin() + j);
+                break;
+            }
+        }
+        if(!sz)
+            if(a2c.lineNumbers.size() == sz)
+                return false;
+    }
+    if(a2c.lineNumbers.size() == 0)
+        return true;
+    else
+        return false;
+}
+
 CTEST(searchbyLine, searchbyLine_test)
 {
     std::vector<FindFile> vector;
     std::string word = "use";
     std::vector<FindFile> vect;
     FindFile w1;
-    w1.lineNumbers =  std::vector<int> {3, 72, 74 ,401, 414};
-    w1.nameFile = "ctest.h";
+    w1.lineNumbers =  std::vector<int> {6, 10};
+    w1.nameFile = (char *) "test.txt";
     vect.push_back(w1);
-    w1.lineNumbers =  std::vector<int> {87};
-    w1.nameFile = "searchengine_test.cpp";
-    vect.push_back(w1);
-//    w1.lineNumbers =  std::vector<int> {6, 10};
-//    w1.nameFile = "./test.txt";
-//    vect.push_back(w1);
     se.searchbyLine(dir, word, vector);
     int result = 1;
-    int size = vect.size();
-    if (size == vector.size())
+    if (vect.size() == vector.size())
     {
-        for(int i = 0; i < size; i++)
+        size_t size = vect.size();
+        for(size_t i = 0; i < size; i++)
         {
-            std::string q1 = vect.at(i).nameFile;
-            std::string q2 = vector.at(i).nameFile;
-            if(q1 != q2)
+            size_t sz = vector.size();
+            for(size_t j = 0; j < sz; j++)
             {
-                result = 0;
-                break;
+                if(vector_compare(vect.at(i), vector.at(j)))
+                {
+                    vector.erase(vector.begin() + j);
+                    break;
+                }
             }
-            int szr = vect.at(i).lineNumbers.size();
-            int szo = vector.at(i).lineNumbers.size();
-            if(szr != szo)
+            if(!sz)
             {
-                result = 0;
-                break;
-            }
-            for(int j = 0; j < szr; j++)
-            {
-                int lnr = vector.at(i).lineNumbers.at(j);
-                int dnr = vect.at(i).lineNumbers.at(j);
-                if(lnr != dnr)
+                if(vector.size() == sz)
                 {
                     result = 0;
                     break;
