@@ -41,4 +41,4 @@ DISTFILES += test/test.txt \
     bin/test/2.txt \
     build/1.txt \
     .travis.yml \
-    bin/test/test.txt
+    bin/test.txt

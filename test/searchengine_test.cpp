@@ -3,8 +3,8 @@
 #include <iostream>
 
 SearchEngine se;
-char path[] = "./bin/test/test.txt";
-char dir[] = "./bin/test/";
+char path[] = "./bin/test.txt";
+char dir[] = "./bin/";
 
 CTEST(validationExtensionf, validationExtensionf_test)
 {
@@ -56,7 +56,7 @@ CTEST(fileSearch, fileSearch_test)
 
 CTEST(getdir, getdir_test)
 {
-    std::vector<char*> exp {(char *) ".", (char *) "..", (char *) "test.txt", (char *) "tss_test.exe"};
+    std::vector<char*> exp {(char *) ".", (char *) "..", (char *) "test.txt", (char *) "test"};
     std::vector<char*> vect;
     se.getdir(dir, vect);
     int result = 1;
@@ -66,8 +66,11 @@ CTEST(getdir, getdir_test)
         for(size_t i = 0; i < vect.size() && result; i++)
         {
             char *q1 = vect.at(i);
-            int size = exp.size();
-            for (int j = 0; j < size; j++)
+            size_t size = exp.size();
+            if (!size)
+                continue;
+
+            for (size_t j = 0; j < size; j++)
             {
                 char *q2 = exp.at(j);
                 if (!strcmp(q1, q2))
@@ -75,8 +78,9 @@ CTEST(getdir, getdir_test)
                     exp.erase(exp.begin() + j);
                     break;
                 }
-                result = 0;
             }
+            if(size == exp.size())
+                result = 0;
         }
     }
     else
@@ -99,6 +103,9 @@ bool vector_compare(FindFile a1, FindFile a2)
     for(size_t i = 0; i < size; i++)
     {
         size_t sz = a2c.lineNumbers.size();
+        if(!sz)
+            continue;
+
         for(size_t j = 0; j < sz; j++)
         {
             if(a1.lineNumbers.at(i) == a2c.lineNumbers.at(j))
@@ -107,9 +114,8 @@ bool vector_compare(FindFile a1, FindFile a2)
                 break;
             }
         }
-        if(!sz)
-            if(a2c.lineNumbers.size() == sz)
-                return false;
+        if(a2c.lineNumbers.size() == sz)
+            return false;
     }
     if(a2c.lineNumbers.size() == 0)
         return true;
@@ -134,6 +140,9 @@ CTEST(searchbyLine, searchbyLine_test)
         for(size_t i = 0; i < size; i++)
         {
             size_t sz = vector.size();
+            if(!sz)
+                continue;
+
             for(size_t j = 0; j < sz; j++)
             {
                 if(vector_compare(vect.at(i), vector.at(j)))
@@ -142,13 +151,10 @@ CTEST(searchbyLine, searchbyLine_test)
                     break;
                 }
             }
-            if(!sz)
+            if(vector.size() == sz)
             {
-                if(vector.size() == sz)
-                {
-                    result = 0;
-                    break;
-                }
+                result = 0;
+                break;
             }
         }
     }
