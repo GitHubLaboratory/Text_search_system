@@ -3,10 +3,7 @@
 #include <QFileDialog>
 #include <QTreeWidget>
 #include <QTextEdit>
-#include <QThread>
-#include <iostream>
 #include "./src/SearchEngine.h"
-#include <QObject>
 
 SearchEngine searchEngine;
 MainWindow::MainWindow(QWidget *parent) :
@@ -25,22 +22,25 @@ QString dir;
 
 void MainWindow::on_pushButton_clicked()
 {
-    std::vector<FindFile> files;
+    QPalette p = ui->textEdit->palette();
     QString searchStr = ui->textEdit->toPlainText();
-    dir =  QFileDialog::getExistingDirectory() + '/';
-    QTreeWidgetItem *topLevelItem;
-    QTreeWidgetItem *item;
-
-    if(dir.length() < 3)
-        return;
-
     if (searchStr.length() < 1)
     {
-        QPalette p = ui->textEdit->palette();
         p.setColor(QPalette::Base, QColor(200, 0, 0));
         ui->textEdit->setPalette(p);
         return;
     }
+    p.setColor(QPalette::Base, QColor(255, 255, 255));
+    ui->textEdit->setPalette(p);
+
+    dir = QFileDialog::getExistingDirectory() + '/';
+
+    if(dir.length() < 3)
+        return;
+
+    std::vector<FindFile> files;
+    QTreeWidgetItem *topLevelItem;
+    QTreeWidgetItem *item;
 
     ui->treeWidget->clear();
     if(searchEngine.searchbyLine(dir.toLocal8Bit().data(), searchStr.toStdString(), files))
