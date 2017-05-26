@@ -1,0 +1,35 @@
+CXX = g++ -std=gnu++11
+
+mainTo = ./build/main_test.o
+seTo   = ./build/searchengine_test.o
+seo    = ./build/SearchEngine.o
+
+SEc  = ./src/SearchEngine.cpp
+SEtc = ./test/searchengine_test.cpp
+mtc  = ./test/main_test.cpp
+
+
+OBJECT_TESTS = mainTo \
+	       seTo \
+	       seo
+
+TESTS = ./src/SearchEngine.cpp \
+	./test/searchengine_test.cpp \
+	./test/main_test.cpp
+
+TEST_TARGET = ./bin/test/tss_test
+
+
+all: $(TEST_TARGET)
+
+$(mainTo): $(mtc)
+	$(CXX) -c $(mtc) -o $(mainTo)
+
+$(seTo): $(SEtc)
+	$(CXX) -c $(SEtc) -o $(seTo)
+
+$(seo): $(SEc)
+	$(CXX) -c $(SEc) -o $(seo)
+
+$(TEST_TARGET): $(mainTo) $(seTo) $(seo)
+	$(CXX) $(mainTo) $(seTo) $(seo) -o $(TEST_TARGET)

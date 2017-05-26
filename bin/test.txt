@@ -1,0 +1,17 @@
+﻿MACRO 4 "1" INV_Misc_QuestionMark
+#showtooltip
+/cast [@focus] парализующий удар
+END
+MACRO 21 "123" INV_Misc_QuestionMark
+/cast нейтрализующий яд VII
+/use [button:1] 16
+END
+MACRO 20 "22" INV_Misc_QuestionMark
+/cast быстродействующий яд IX
+/use [button:1] 16
+END
+MACRO 37 "Arena1" Ability_Hunter_MarkedForDeath
+/focus [@arena1]
+END
+MACRO 38 "Arena2" Ability_Hunter_MarkedForDeath
+/focus [@arena2]

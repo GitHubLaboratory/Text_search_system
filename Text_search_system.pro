@@ -25,9 +25,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    src/SearchEngine.cpp
+    src/SearchEngine.cpp \
+    test/main_test.cpp \
+    test/searchengine_test.cpp
 
 HEADERS  += mainwindow.h \
-    src/SearchEngine.h
+    src/SearchEngine.h \
+    test/ctest.h
+
 
 FORMS    += mainwindow.ui
+
+DISTFILES += test/test.txt \
+    Makefile.test \
+    bin/test/2.txt \
+    build/1.txt \
+    .travis.yml \
+    bin/test.txt

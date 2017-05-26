@@ -15,27 +15,31 @@
 #define SEARCHENGINE_H
 #include <dirent.h>
 #include <vector>
-#include <string>
+#include <string.h>
 #include <fstream>
+#include <sys/stat.h>
 
 struct FindFile
 {                  
     std::vector<int> lineNumbers;
-    std::string nameFile;
+    char *nameFile;
 };  
 
 class SearchEngine {
 public:
     SearchEngine();
     SearchEngine(const SearchEngine& orig);
-    int getStringF(std::string path, int numberS, std::string &stringF);
-    int searchbyLine(std::string path, std::string extension, std::string str_tosearch, std::vector<FindFile> &findFiles);
-    int searchbyLine(std::string path, std::string str_tosearch, std::vector<FindFile> &findFiles);
+    int searchbyLine(char *path, std::string extension, std::string str_tosearch, std::vector<FindFile> &findFiles);
+    int searchbyLine(char *path, std::string str_tosearch, std::vector<FindFile> &findFiles);
+    int fileSearch(char *path, std::string str, std::vector<int> &found_numbers);
+    int getStringF(char *path, int numberS, std::string &stringF);
+    int validationExtensionf(char *file, std::string extension);
+    int getdir (char *dir, std::vector<char*> &files);
+    char* concat(char *s1, char *s2);
     virtual ~SearchEngine();
+
 private:
-    int fileSearch(std::string path, std::string str, std::vector<int> &found_numbers);
-    int getdir (std::string dir, std::vector<std::string> &files);
-    int validationExtensionf(std::string file, std::string extension);
+
 };
 
 #endif /* SEARCHENGINE_H */
