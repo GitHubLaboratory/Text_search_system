@@ -22,17 +22,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+CONFIG -= debug_and_release
+DESTDIR = ./bin/release
+MOC_DIR = ./build/release
+OBJECTS_DIR = ./build/release
+RCC_DIR = ./build/release
+UI_DIR = ./build/release
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    src/SearchEngine.cpp \
-    test/main_test.cpp \
-    test/searchengine_test.cpp
+    src/SearchEngine.cpp
 
 HEADERS  += mainwindow.h \
-    src/SearchEngine.h \
-    test/ctest.h
-
+    src/SearchEngine.h
 
 FORMS    += mainwindow.ui
 
